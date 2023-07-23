@@ -1,0 +1,36 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+    <center>
+    <h1>Добавить файл в бакет</h1>
+    {% if submitted %}
+        Запись сохранена!
+    {% else %}
+        <form method=POST>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Добавить">
+            {% if buckets %}
+            <table>
+                <thread>
+                    <tr>
+                        <th>Name</th>
+                        <th>Link</th>
+                        <th>File</th>
+                    </tr>
+                </thread>
+                {% for el in buckets %}
+                <tr>
+                    <td>{{ el.name }}</td>
+                    <td><a href="{{ el.link }}">{{ el.link }}</a></td>
+                    <td>{{ el.file }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            {% else %}
+                <h1>Записей нету</h1>
+            {% endif %}
+        </form>
+    {% endif %}
+    </center>
+{% endblock %}
